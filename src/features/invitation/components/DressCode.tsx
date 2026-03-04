@@ -1,60 +1,62 @@
+'use client';
 import Image from "next/image";
 import { VALERIA_DATA } from "../../../data/content";
 import RedeemOutlinedIcon from '@mui/icons-material/RedeemOutlined';
+import { Playfair_Display } from "next/font/google";
+
+const playfair = Playfair_Display({ subsets: ["latin"] });
 
 export const DressCode = () => {
   return (
-    <section className="py-24 bg-[#FFFDF5] text-center border-y border-amber-100">
-      <div className="flex flex-col md:flex-row justify-center items-stretch gap-12 md:gap-24 max-w-6xl mx-auto px-6">
-
-        <div className="flex-1 flex flex-col items-center justify-between" data-aos="fade-up">
-          <div className="flex mb-8 space-x-6">
-            <div className="relative w-16 h-16 md:w-20 md:h-20 drop-shadow-sm">
+    <section className="flex flex-col">
+      
+      {/* SECCIÓN: CÓDIGO DE VESTIMENTA (Fondo Claro) */}
+      <div className="py-24 bg-[#FFFDF5] text-center border-t border-amber-100 px-6">
+        <div className="max-w-4xl mx-auto flex flex-col items-center" data-aos="fade-up">
+          <h4 className="text-[12px] font-bold uppercase tracking-[0.6em] text-amber-900/50 mb-4">
+            Código de Vestimenta
+          </h4>
+          <p className={`${playfair.className} text-4xl md:text-5xl text-amber-900 italic mb-10`}>
+            {VALERIA_DATA.dressCode}
+          </p>
+          
+          <div className="flex space-x-12">
+            <div className="relative w-24 h-24 md:w-32 md:h-32 drop-shadow-md">
               <Image
                 src="/terno.png"
                 alt="Traje Varones"
                 fill
-                className="object-contain grayscale hover:grayscale-0 transition-all duration-500"
+                className="object-contain"
               />
             </div>
-            <div className="relative w-16 h-16 md:w-20 md:h-20 drop-shadow-sm">
+            <div className="relative w-24 h-24 md:w-32 md:h-32 drop-shadow-md">
               <Image
                 src="/vestido.png"
                 alt="Traje Mujeres"
                 fill
-                className="object-contain grayscale hover:grayscale-0 transition-all duration-500"
+                className="object-contain"
               />
             </div>
           </div>
-
-          <div className="space-y-2">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.5em] text-amber-900/40 italic">
-              Código de Vestimenta
-            </h4>
-            <p className="text-3xl md:text-4xl font-serif text-amber-900 italic leading-tight">
-              {VALERIA_DATA.dressCode}
-            </p>
-          </div>
         </div>
-
-        <div className="hidden md:block w-px bg-linear-to-b from-transparent via-amber-200 to-transparent" />
-
-        <div className="flex-1 flex flex-col items-center justify-between" data-aos="fade-up" data-aos-delay="200">
-          <div className="mb-8">
-            <RedeemOutlinedIcon sx={{ fontSize: 70, color: '#b45309', opacity: 0.8 }} />
-          </div>
-
-          <div className="space-y-2">
-            <h4 className="text-[11px] font-bold uppercase tracking-[0.5em] text-amber-900/40 italic">
-              Sugerencia de Presente
-            </h4>
-            <p className="text-3xl md:text-4xl font-serif text-amber-900 italic leading-tight">
-              {VALERIA_DATA.gift}
-            </p>
-          </div>
-        </div>
-
       </div>
+
+      {/* SECCIÓN: REGALO (Fondo Ámbar - El color del texto anterior ahora es fondo) */}
+      <div className="py-24 bg-amber-900 text-center px-6 shadow-inner">
+        <div className="max-w-4xl mx-auto flex flex-col items-center" data-aos="fade-up">
+          <h4 className="text-[12px] font-bold uppercase tracking-[0.6em] text-amber-200/60 mb-4">
+            Sugerencia de Presente
+          </h4>
+          <p className={`${playfair.className} text-4xl md:text-5xl text-amber-50 italic mb-10`}>
+            {VALERIA_DATA.gift}
+          </p>
+          
+          <div className="p-6 rounded-full bg-amber-800/50 border border-amber-700/50 shadow-2xl">
+            <RedeemOutlinedIcon sx={{ fontSize: 90, color: '#fef3c7' }} />
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 };

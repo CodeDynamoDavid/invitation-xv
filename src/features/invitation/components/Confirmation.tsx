@@ -1,24 +1,21 @@
 'use client';
 import { useState } from 'react';
+import Image from "next/image";
 import { Playfair_Display, Great_Vibes } from "next/font/google";
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import PanToolAltIcon from '@mui/icons-material/PanToolAlt';
 
 const mainFont = Playfair_Display({ subsets: ["latin"] });
 const scriptFont = Great_Vibes({ weight: "400", subsets: ["latin"] });
 
 export const Confirmation = () => {
   const [loading, setLoading] = useState(false);
+  const TELEFONO = "51953005851";
 
-  const TELEFONO = "51953005851"; 
-
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const onSubmit = () => {
     setLoading(true);
-
-    const formData = new FormData(event.currentTarget);
-    const nombre = formData.get('nombre') as string;
-
-    const mensaje = `¡Hola! Confirmo mi asistencia para los XV de Valeria Illary.%0ANombre: ${nombre}`;
-    const whatsappUrl = `https://wa.me/${TELEFONO}?text=${mensaje}`;
+    const mensaje = `¡Hola! Confirmo mi asistencia para los XV de Valeria Illary.`;
+    const whatsappUrl = `https://wa.me/${TELEFONO}?text=${encodeURIComponent(mensaje)}`;
 
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
@@ -27,52 +24,64 @@ export const Confirmation = () => {
   };
 
   return (
-    <section className="py-24 px-6 bg-[#FAF7ED] flex justify-center">
-      <div className="max-w-md w-full p-10 bg-white rounded-xl border-2 border-amber-900/20 shadow-2xl relative">
-        
-        <div className="relative z-10 text-center">
-          <h2 className={`${scriptFont.className} text-6xl text-amber-950 mb-4`}>
-            Asistencia
-          </h2>
-          
-          <p className={`${mainFont.className} text-amber-900 font-bold text-sm leading-relaxed mb-8 uppercase tracking-widest`}>
-            Espero puedas acompañarme <br/> en esta noche mágica
-          </p>
-          
-          <form onSubmit={onSubmit} className="space-y-6">
-            <div className="text-left">
-              <label 
-                htmlFor="nombre"
-                className="block text-xs font-bold uppercase tracking-wider text-amber-950 mb-2"
-              >
-                Escribe tu nombre completo:
-              </label>
-              <input 
-                id="nombre"
-                name="nombre" 
-                required 
-                type="text"
-                autoComplete="name"
-                className="w-full p-4 bg-[#FFFDF5] border-2 border-amber-800/30 rounded-lg outline-none focus:border-amber-900 text-amber-950 font-medium placeholder:text-stone-400 transition-all shadow-sm" 
-                placeholder="Ej. Juan Pérez" 
-              />
-            </div>
+    <section className="py-24 px-6 bg-[#FAF7ED] text-center overflow-hidden">
+      <div className="max-w-3xl mx-auto flex flex-col items-center">
 
-            <button 
-              type="submit" 
-              disabled={loading}
-              className={`
-                w-full py-5 rounded-lg font-black tracking-[0.2em] uppercase text-sm transition-all duration-300 shadow-md active:scale-95
-                ${loading 
-                  ? 'bg-stone-200 text-stone-500' 
-                  : 'bg-amber-950 text-white hover:bg-[#2D1B0D] hover:shadow-xl'}
-              `}
-            >
-              {loading ? 'Cargando...' : 'Confirmar por WhatsApp'}
-            </button>
-          </form>
+        <h2 className={`${scriptFont.className} text-6xl md:text-7xl text-amber-950 mb-8`}>
+          Asistencia
+        </h2>
+
+        <div className="relative flex items-center justify-center w-full max-w-lg mb-12">
+          <div className="flex-1 h-[1px] bg-gradient-to-r from-transparent via-amber-200 to-amber-300"></div>
+          <div className="mx-6 relative">
+            <Image
+              src="/tiaras.png"
+              alt="Ornamento"
+              width={40}
+              height={40}
+              className="relative z-10 object-contain opacity-80"
+            />
+          </div>
+          <div className="flex-1 h-[1px] bg-gradient-to-l from-transparent via-amber-200 to-amber-300"></div>
         </div>
+
+        <div className="max-w-2xl space-y-8 mb-16 px-4">
+          <p className={`${mainFont.className} text-amber-900 font-bold text-xs uppercase tracking-[0.4em]`}>
+            Espero puedas acompañarme en esta noche mágica
+          </p>
+          <p className="text-stone-500 text-[13px] md:text-sm italic leading-loose font-light max-w-lg mx-auto">
+            Sin ti el momento no sería igual. Agradeceremos tu confirmación, pero también entendemos si por alguna razón no puedes asistir; te pedimos por favor que nos lo hagas saber.
+          </p>
+        </div>
+
+        <div className="relative group">
+          <button
+            onClick={onSubmit}
+            disabled={loading}
+            className="flex items-center gap-3 px-10 py-4 border-b border-amber-800 text-amber-950 transition-all duration-500 hover:bg-amber-100/50 group"
+          >
+            <EmailOutlinedIcon sx={{ fontSize: 20, color: '#451a03' }} />
+            <span className="font-bold tracking-[0.3em] uppercase text-[10px] md:text-xs">
+              {loading ? 'Cargando...' : 'Confirmar Asistencia'}
+            </span>
+          </button>
+
+          <div className="absolute -bottom-10 -right-10 text-amber-800/30 -rotate-12 animate-float pointer-events-none">
+            <PanToolAltIcon sx={{ fontSize: 32 }} />
+          </div>
+        </div>
+
       </div>
+
+      <style jsx>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0) rotate(-12deg); }
+          50% { transform: translateY(-8px) rotate(-12deg); }
+        }
+        .animate-float {
+          animation: float 3s infinite ease-in-out;
+        }
+      `}</style>
     </section>
   );
 };
