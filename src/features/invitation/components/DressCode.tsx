@@ -43,7 +43,7 @@ export const DressCode = () => {
       <div className="relative py-32 text-center px-6 overflow-hidden min-h-125 flex items-center justify-center">
         
         <Image
-          src="/rega.jpg"
+          src="/regal.jpg"
           alt="Fondo Regalo"
           fill
           className="object-cover"
