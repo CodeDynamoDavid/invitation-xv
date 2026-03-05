@@ -4,12 +4,15 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-mo
 import Image from "next/image";
 
 const initialPhotos = [
-  { id: 1, src: "/goku.jpg", rotate: -5 },
-  { id: 2, src: "/goku.jpg", rotate: 3 },
-  { id: 3, src: "/goku.jpg", rotate: -2 },
-  { id: 4, src: "/goku.jpg", rotate: 6 },
-  { id: 5, src: "/goku.jpg", rotate: -4 },
-  { id: 6, src: "/goku.jpg", rotate: 2 },
+  { id: 1, src: "/fot1.png", rotate: -5 },
+  { id: 2, src: "/fot2.png", rotate: 3 },
+  { id: 3, src: "/fot3.png", rotate: -2 },
+  { id: 4, src: "/fot4.png", rotate: 6 },
+  { id: 5, src: "/fot5.png", rotate: -4 },
+  { id: 6, src: "/fot6.png", rotate: 2 },
+  { id: 7, src: "/fot7.png", rotate: -1 },
+  { id: 8, src: "/fot8.png", rotate: 4 },
+  { id: 9, src: "/fot9.png", rotate: -3 },
 ];
 
 export const Photos = () => {

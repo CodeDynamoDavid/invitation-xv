@@ -13,7 +13,7 @@ import { Playfair_Display } from "next/font/google";
 const playfair = Playfair_Display({ subsets: ["latin"] });
 
 const PLAYLIST = [
-    { title: "Vals de las Flores", url: "/music/song1.mp3" },
+    { title: "A NARNIA LULLABY", url: "/music/anarni.mp3" },
     { title: "Perfect - Ed Sheeran", url: "/music/edshean.mp3" },
 ];
 

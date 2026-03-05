@@ -34,9 +34,11 @@ export const Countdown = () => {
 
   return (
     <section className="w-full flex flex-col overflow-hidden">
+      
+      {/* 1. SECCIÓN CALENDARIO CON FONDO */}
+      <div className="relative py-16 flex flex-col items-center overflow-hidden">        
 
-      <div className="bg-[#FAF7ED] py-16 flex flex-col items-center">
-        <div className="flex flex-col items-center" data-aos="fade-up">
+        <div className="relative z-10 flex flex-col items-center" data-aos="fade-up">
           <h4 className={`${playfair.className} text-3xl text-amber-900 uppercase tracking-[0.3em] mb-12`}>
             Marzo
           </h4>
@@ -67,7 +69,7 @@ export const Countdown = () => {
                     </span>
                   </div>
                 ) : (
-                  <span className="text-amber-900/40 font-medium text-sm">
+                  <span className="text-amber-900/50 font-medium text-sm">
                     {day}
                   </span>
                 )}
@@ -77,22 +79,33 @@ export const Countdown = () => {
         </div>
       </div>
 
-      <div className="bg-amber-900 py-20 flex justify-center w-full">
-        <div className="flex items-center justify-center gap-1 md:gap-4" data-aos="zoom-in">
+      {/* 2. SECCIÓN CONTADOR CON FONDO */}
+      <div className="relative py-20 flex justify-center w-full min-h-75 overflow-hidden">
+        {/* Imagen de fondo para los números */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/mes2.jpg" // Reemplaza con tu imagen
+            alt="Fondo decorativo"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60" /> 
+        </div>
+
+        <div className="relative z-10 flex items-center justify-center gap-1 md:gap-4" data-aos="zoom-in">
           {timeBlocks.map((block, index) => (
             <div key={block.label} className="flex items-center">
-
-              <div className="flex flex-col items-center min-w-17.5 md:min-w-30">
-                <span className={`${playfair.className} text-5xl md:text-8xl text-amber-50 font-extralight tracking-tighter`}>
+              <div className="flex flex-col items-center min-w-18.75 md:min-w-30">
+                <span className={`${playfair.className} text-5xl md:text-8xl text-amber-50 font-extralight tracking-tighter drop-shadow-xl`}>
                   {String(block.value).padStart(2, '0')}
                 </span>
-                <span className={`${montserrat.className} mt-4 text-[9px] md:text-[11px] uppercase tracking-[0.4em] text-amber-200/40 font-semibold`}>
+                <span className={`${montserrat.className} mt-4 text-[9px] md:text-[11px] uppercase tracking-[0.4em] text-amber-200/80 font-semibold`}>
                   {block.label}
                 </span>
               </div>
 
               {index !== timeBlocks.length - 1 && (
-                <div className="flex flex-col gap-2 mx-1 md:mx-4 opacity-30 pt-2 md:pt-4">
+                <div className="flex flex-col gap-2 mx-1 md:mx-4 opacity-40 pt-2 md:pt-4">
                   <FiberManualRecordIcon sx={{ fontSize: { xs: 6, md: 10 } }} className="text-amber-200" />
                   <FiberManualRecordIcon sx={{ fontSize: { xs: 6, md: 10 } }} className="text-amber-200" />
                   <div className="h-6" />

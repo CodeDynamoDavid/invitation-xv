@@ -1,90 +1,173 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Alex_Brush, Playfair_Display, Great_Vibes } from "next/font/google";
-import AOS from "aos";
-import "aos/dist/aos.css";
+import { Playfair_Display } from "next/font/google";
 
-import AutoAwesomeOutlinedIcon from "@mui/icons-material/AutoAwesomeOutlined";
-import PentagonOutlinedIcon from "@mui/icons-material/PentagonOutlined";
-
-const alexBrush = Alex_Brush({ weight: "400", subsets: ["latin"] });
-const mainFont = Playfair_Display({ subsets: ["latin"], style: ["italic", "normal"] });
-const scriptFont = Great_Vibes({ weight: "400", subsets: ["latin"] });
+const mainFont = Playfair_Display({ subsets: ["latin"] });
 
 export default function Home() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [stage, setStage] = useState<"envelope" | "wardrobe" | "opening" | "flash">("envelope");
   const router = useRouter();
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    AOS.init({ duration: 1200, once: true, easing: "ease-out" });
-  }, []);
+  const handleEnvelopeClick = () => {
+    setStage("wardrobe");
 
-  const handleOpenEnvelope = () => {
-    setIsOpen(true);
+    setTimeout(() => {
+      setStage("opening");
+      audioRef.current?.play();
+    }, 1200);
+
+    setTimeout(() => {
+      setStage("flash");
+    }, 8500);
+
     setTimeout(() => {
       router.push("/invitation");
-    }, 1100);
+    }, 3500);
   };
 
   return (
-    <main className="min-h-screen bg-[#FFFDF5] flex flex-col items-center justify-center p-4 overflow-hidden relative">
+    <main className="relative min-h-screen overflow-hidden bg-black text-center">
 
-      <div className={`fixed inset-0 pointer-events-none z-0 transition-opacity duration-1000 ${isOpen ? "opacity-0" : "opacity-100"}`}>
-        <div className="absolute top-0 left-0 w-40 h-40 opacity-20 rotate-180">
-          <Image src="/arreglo.png" alt="deco" fill className="object-contain" />
-        </div>
-        <div className="absolute bottom-0 right-0 w-40 h-40 opacity-20">
-          <Image src="/arreglo.png" alt="deco" fill className="object-contain" />
-        </div>
-      </div>
+      <audio ref={audioRef} src="/door-creak.mp3" preload="auto" />
 
-      <div className={`w-full max-w-md transition-all duration-1000 text-center z-10 ${isOpen ? "opacity-0 -translate-y-10 scale-95" : "opacity-100"}`}>
-        <div className="mb-4 text-amber-800/40" data-aos="fade-down">
-          <AutoAwesomeOutlinedIcon sx={{ fontSize: 30 }} />
-        </div>
+      {/* ================= SOBRE CON FONDO ================= */}
+      {stage === "envelope" && (
+        <div className="relative w-full h-screen overflow-hidden">
 
-        <h1 className={`${mainFont.className} text-amber-900/70 text-sm font-bold tracking-[0.4em] uppercase mb-2`}>
-          Estás invitado a vivir la magia
-        </h1>
-
-        <h2 className={`${alexBrush.className} text-7xl md:text-8xl text-amber-800 leading-tight mb-2`}>
-          Mis XV Años
-        </h2>
-
-        <p className={`${mainFont.className} italic text-amber-900/60 text-lg mb-6`}>
-          Una aventura inolvidable
-        </p>
-      </div>
-
-      <div
-        className="relative w-[85%] max-w-sm cursor-pointer mt-4 z-10"
-        onClick={handleOpenEnvelope}
-        data-aos="zoom-in"
-        data-aos-delay="400"
-      >
-        <div className={`relative aspect-[4/3] transition-all duration-1000 ${isOpen ? "scale-150 opacity-0 -translate-y-20 rotate-2" : "hover:scale-105"}`}>
+          {/* 🌌 IMAGEN DE FONDO */}
           <Image
-            src="/sobre.png"
-            alt="Sobre"
+            src="/narnia.png"   // 👈 CAMBIA POR TU IMAGEN
+            alt="Fondo Reino"
             fill
             priority
-            className="object-contain drop-shadow-2xl"
+            className="object-cover brightness-75 animate-slowZoom"
           />
+
+          {/* CAPA OSCURA */}
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          {/* CONTENIDO */}
+          <div className="relative z-10 flex flex-col items-center justify-center h-full">
+
+            <h1 className={`${mainFont.className} text-white/90 text-sm tracking-[0.8em] uppercase mb-14`}>
+              Bienvenidos al Reino
+            </h1>
+
+            <div
+              onClick={handleEnvelopeClick}
+              className="cursor-pointer transition-all duration-700 hover:scale-105"
+            >
+              <Image
+                src="/sobrexv2.png"
+                alt="Sobre XV"
+                width={340}
+                height={220}
+                className="drop-shadow-[0_30px_60px_rgba(0,0,0,0.9)]"
+              />
+            </div>
+
+          </div>
         </div>
-      </div>
+      )}
 
-      <button
-        onClick={handleOpenEnvelope}
-        className={`${mainFont.className} mt-10 animate-pulse text-amber-900/50 tracking-[0.3em] uppercase text-xs font-bold z-10`}
-      >
-        — Toca para entrar al reino —
-      </button>
+      {/* ================= ESCENA CINEMATOGRÁFICA ================= */}
+      {(stage === "wardrobe" || stage === "opening" || stage === "flash") && (
+        <div className="absolute inset-0 flex items-center justify-center bg-black overflow-hidden">
 
-      <div className="mt-4 text-amber-800/30" data-aos="fade-up">
-        <PentagonOutlinedIcon sx={{ fontSize: 15 }} />
-      </div>
+          <div
+            className={`relative w-250 h-250 transition-all duration-8000 ease-in-out ${
+              stage === "opening" ? "scale-[1.5]" : "scale-100"
+            }`}
+          >
+
+            {/* LUZ PORTAL */}
+            {stage !== "wardrobe" && (
+              <div className="absolute inset-0 flex items-center justify-center z-0">
+                <div className="w-175 h-225 bg-white blur-[300px] opacity-100 animate-pulse"></div>
+              </div>
+            )}
+
+            {/* PARTÍCULAS */}
+            {stage === "opening" && (
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,215,0,0.5)_1px,transparent_1px)] bg-size-[30px_30px] animate-[sparkle_4s_linear_infinite]"></div>
+              </div>
+            )}
+
+            {/* HUMO */}
+            {stage === "opening" && (
+              <div className="absolute inset-0 z-20 bg-linear-to-t from-white/40 via-white/20 to-transparent blur-[180px] animate-pulse"></div>
+            )}
+
+            {/* PUERTAS */}
+            <div className="absolute inset-0 flex z-30 overflow-hidden">
+
+              <div
+                className={`relative w-1/2 h-full transition-all duration-5000 ease-in-out ${
+                  stage === "opening" ? "-translate-x-full" : ""
+                }`}
+              >
+                <Image
+                  src="/puerta-izquierdo.png"
+                  alt="Puerta izquierda"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+              <div
+                className={`relative w-1/2 h-full transition-all duration-5000 ease-in-out ${
+                  stage === "opening" ? "translate-x-full" : ""
+                }`}
+              >
+                <Image
+                  src="/puerta-derecha.png"
+                  alt="Puerta derecha"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      )}
+
+      {/* FLASH FINAL */}
+      {stage === "flash" && (
+        <div className="absolute inset-0 bg-white animate-fadeWhite z-50"></div>
+      )}
+
+      {/* ANIMACIONES */}
+      <style jsx global>{`
+        @keyframes sparkle {
+          from { background-position: 0 0; }
+          to { background-position: 0 800px; }
+        }
+
+        @keyframes fadeWhite {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        @keyframes slowZoom {
+          from { transform: scale(1.05); }
+          to { transform: scale(1.15); }
+        }
+
+        .animate-fadeWhite {
+          animation: fadeWhite 1.5s forwards;
+        }
+
+        .animate-slowZoom {
+          animation: slowZoom 20s linear infinite alternate;
+        }
+      `}</style>
+
     </main>
   );
 }
