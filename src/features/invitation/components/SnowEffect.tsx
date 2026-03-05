@@ -50,7 +50,7 @@ export const SnowEffect = () => {
         },
         retina_detect: true,
       }}
-      className="absolute inset-0 z-[1]"
+      className="absolute inset-0 z-1"
     />
   );
 };
