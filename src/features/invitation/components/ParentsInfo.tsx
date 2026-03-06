@@ -11,13 +11,13 @@ export const ParentsInfo = () => {
 
         <div data-aos="fade-up">
           <h2 className={`${playfair.className} text-3xl md:text-4xl text-amber-900 mb-12 italic`}>
-            Con la bendición de mis...
+            Con la bendición de mi...
           </h2>
         </div>
 
         <div data-aos="fade-up" className="space-y-4">
           <h3 className="uppercase tracking-[0.3em] text-xs font-bold text-amber-900/50 mb-4">
-            Padres
+            Madre
           </h3>
           <p className={`${playfair.className} text-2xl text-amber-900`}>
             {VALERIA_DATA.mother}

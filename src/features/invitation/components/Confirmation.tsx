@@ -10,7 +10,7 @@ const scriptFont = Great_Vibes({ weight: "400", subsets: ["latin"] });
 
 export const Confirmation = () => {
   const [loading, setLoading] = useState(false);
-  const TELEFONO = "51959112575";
+  const TELEFONO = "51961407025";
 
   const onSubmit = () => {
     setLoading(true);

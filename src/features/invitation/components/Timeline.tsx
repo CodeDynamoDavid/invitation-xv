@@ -19,19 +19,19 @@ export const Timeline = () => {
       icon: <Church sx={{ fontSize: 30 }} />
     },
     {
-      time: '19:30',
+      time: '19:00',
       title: 'Cruza el Ropero',
       desc: 'Recepción en el Gran Salón',
       icon: <AutoAwesome sx={{ fontSize: 30 }} />
     },
     {
-      time: '21:00',
+      time: '20:00',
       title: 'Brindis y Vals',
       desc: 'Momento mágico en la pista',
       icon: <MusicNote sx={{ fontSize: 30 }} />
     },
     {
-      time: '22:30',
+      time: '21:00',
       title: 'Gran Baile',
       desc: 'Celebración en todo el reino',
       icon: <Celebration sx={{ fontSize: 30 }} />
