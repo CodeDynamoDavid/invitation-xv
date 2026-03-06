@@ -36,7 +36,7 @@ export const Countdown = () => {
     <section className="w-full flex flex-col overflow-hidden">
       
       {/* 1. SECCIÓN CALENDARIO (FONDO MAPA VINTAGE) */}
-      <div className="relative py-16 flex flex-col items-center overflow-hidden min-h-[550px]">
+      <div className="relative py-16 flex flex-col items-center overflow-hidden min-h-137.5">
         <div className="absolute inset-0 z-0">
           <Image
             src="/calendario.jpeg" // Tu nueva imagen del mapa
@@ -107,7 +107,7 @@ export const Countdown = () => {
         <div className="relative z-10 flex items-center justify-center gap-2 md:gap-6" data-aos="zoom-in">
           {timeBlocks.map((block, index) => (
             <div key={block.label} className="flex items-center">
-              <div className="flex flex-col items-center min-w-[85px] md:min-w-[140px]">
+              <div className="flex flex-col items-center min-w-21.25 md:min-w-35">
                 {/* Texto blanco con sombra fuerte para separar de la nieve blanca */}
                 <span className={`${playfair.className} text-6xl md:text-9xl text-white font-extralight tracking-tighter drop-shadow-[0_4px_12px_rgba(0,0,0,0.8)]`}>
                   {String(block.value).padStart(2, '0')}

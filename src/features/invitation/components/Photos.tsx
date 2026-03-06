@@ -13,6 +13,7 @@ const initialPhotos = [
   { id: 7, src: "/fot7.png", rotate: -1 },
   { id: 8, src: "/fot8.png", rotate: 4 },
   { id: 9, src: "/fot9.png", rotate: -3 },
+  { id: 10, src: "/fot10.png", rotate: 5 },
 ];
 
 export const Photos = () => {
