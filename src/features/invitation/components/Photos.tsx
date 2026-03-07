@@ -4,16 +4,12 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-mo
 import Image from "next/image";
 
 const initialPhotos = [
-  { id: 1, src: "/fot1.png", rotate: -5 },
-  { id: 2, src: "/fot2.png", rotate: 3 },
-  { id: 3, src: "/fot3.png", rotate: -2 },
-  { id: 4, src: "/fot4.png", rotate: 6 },
-  { id: 5, src: "/fot5.png", rotate: -4 },
-  { id: 6, src: "/fot6.png", rotate: 2 },
-  { id: 7, src: "/fot7.png", rotate: -1 },
-  { id: 8, src: "/fot8.png", rotate: 4 },
-  { id: 9, src: "/fot9.png", rotate: -3 },
-  { id: 10, src: "/fot10.jpeg", rotate: 5 },
+  { id: 1, src: "/foto1.png", rotate: -5 },
+  { id: 2, src: "/foto2.png", rotate: 3 },
+  { id: 3, src: "/foto3.png", rotate: -2 },
+  { id: 4, src: "/foto4.png", rotate: 6 },
+  { id: 5, src: "/foto5.png", rotate: -4 },
+  { id: 6, src: "/foto6.jpeg", rotate: 2 },
 ];
 
 export const Photos = () => {
@@ -107,7 +103,7 @@ export const Photos = () => {
 
                 <div className="h-[12%] flex items-center justify-center pointer-events-none">
                   <p className="font-serif text-amber-900/40 text-[10px] uppercase tracking-widest">
-                    Valeria Illary • 2026
+                    Valeria • 2026
                   </p>
                 </div>
               </motion.div>

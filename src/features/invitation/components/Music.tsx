@@ -23,8 +23,11 @@ export const Music = () => {
     const [progress, setProgress] = useState(0);
     const [currentTime, setCurrentTime] = useState("0:00");
     const [duration, setDuration] = useState("0:00");
+    
     const audioRef = useRef<HTMLAudioElement | null>(null);
+    const sectionRef = useRef<HTMLElement | null>(null); // Referencia a la sección
 
+    // 1. Inicializar Audio
     useEffect(() => {
         audioRef.current = new Audio(PLAYLIST[currentIndex].url);
         const audio = audioRef.current;
@@ -48,10 +51,33 @@ export const Music = () => {
         };
     }, []);
 
+    // 2. Efecto para detectar cuando el usuario entra a la sección
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                const entry = entries[0];
+                // Si la sección es visible y aún no está sonando
+                if (entry.isIntersecting && !isPlaying) {
+                    togglePlay(true); // Intenta dar play
+                }
+            },
+            { threshold: 0.5 } // Se activa cuando el 50% de la sección es visible
+        );
+
+        if (sectionRef.current) {
+            observer.observe(sectionRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [isPlaying]);
+
+    // 3. Cambiar de canción
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.src = PLAYLIST[currentIndex].url;
-            if (isPlaying) audioRef.current.play().catch(() => setIsPlaying(false));
+            if (isPlaying) {
+                audioRef.current.play().catch(() => setIsPlaying(false));
+            }
         }
     }, [currentIndex]);
 
@@ -61,17 +87,28 @@ export const Music = () => {
         return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
     };
 
-    const togglePlay = () => {
-        if (isPlaying) audioRef.current?.pause();
-        else audioRef.current?.play().catch(console.error);
-        setIsPlaying(!isPlaying);
+    // Modificamos togglePlay para aceptar un comando forzado
+    const togglePlay = (forcePlay?: boolean) => {
+        const shouldPlay = forcePlay !== undefined ? forcePlay : !isPlaying;
+        
+        if (shouldPlay) {
+            audioRef.current?.play()
+                .then(() => setIsPlaying(true))
+                .catch((err) => {
+                    console.log("Autoplay bloqueado por el navegador. Esperando interacción.");
+                    setIsPlaying(false);
+                });
+        } else {
+            audioRef.current?.pause();
+            setIsPlaying(false);
+        }
     };
 
     const handleNext = () => setCurrentIndex((prev) => (prev + 1) % PLAYLIST.length);
     const handlePrev = () => setCurrentIndex((prev) => (prev - 1 + PLAYLIST.length) % PLAYLIST.length);
 
     return (
-        <section className="w-full flex flex-col">
+        <section ref={sectionRef} className="w-full flex flex-col">
 
             <div className="flex flex-col items-center py-24 px-8 bg-[#FAF7ED]">
                 <div data-aos="fade-up" className="flex flex-col items-center w-full max-w-sm">
@@ -82,7 +119,7 @@ export const Music = () => {
                         </IconButton>
 
                         <IconButton
-                            onClick={togglePlay}
+                            onClick={() => togglePlay()}
                             className="bg-white/40 text-amber-900 p-6 hover:bg-white/60 transition-all shadow-sm"
                         >
                             {isPlaying ?

@@ -1,5 +1,5 @@
 export const VALERIA_DATA = {
-  name: "Valeria Illary",
+  name: "Valeria",
   intro: "Con la bendición de Dios y el amor que mi mamita me ha dado, me siento feliz de llegar a este momento de mi vida, el día que dejaré atrás mi infancia y comenzaré una nueva etapa.",
   mother: "Evelin N. Huacani Quispe",
   padrinos: {
